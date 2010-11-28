@@ -35,7 +35,7 @@
 freenect_device *fake_dev = (freenect_device *)1234;
 freenect_context *fake_ctx = (freenect_context *)5678;
 freenect_depth_cb cur_depth_cb = NULL;
-freenect_rgb_cb cur_rgb_cb = NULL;
+freenect_video_cb cur_rgb_cb = NULL;
 char *input_path = NULL;
 FILE *index_fp = NULL;
 freenect_raw_device_state state = {};
@@ -176,7 +176,7 @@ int freenect_process_events(freenect_context *ctx) {
 	break;
     case 'r':
 	if (cur_rgb_cb)
-	    cur_rgb_cb(fake_dev, (freenect_pixel *)skip_line(data), timestamp);
+	    cur_rgb_cb(fake_dev, skip_line(data), timestamp);
 	break;
     case 'a':
 	if (data_size == sizeof(state)) {
@@ -208,7 +208,7 @@ void freenect_set_depth_callback(freenect_device *dev, freenect_depth_cb cb) {
     cur_depth_cb = cb;
 }
 
-void freenect_set_rgb_callback(freenect_device *dev, freenect_rgb_cb cb) {
+void freenect_set_video_callback(freenect_device *dev, freenect_video_cb cb) {
     cur_rgb_cb = cb;
 }
 
@@ -233,12 +233,12 @@ void freenect_set_log_level(freenect_context *ctx, freenect_loglevel level) {}
 void freenect_set_user(freenect_device *dev, void *user) {}
 int freenect_shutdown(freenect_context *ctx) {return 0;}
 int freenect_close_device(freenect_device *dev) {return 0;}
-int freenect_set_rgb_format(freenect_device *dev, freenect_video_format fmt) {return 0;}
+int freenect_set_video_format(freenect_device *dev, freenect_video_format fmt) {return 0;}
 int freenect_set_depth_format(freenect_device *dev, freenect_depth_format fmt) {return 0;}
 int freenect_start_depth(freenect_device *dev) {return 0;}
-int freenect_start_rgb(freenect_device *dev) {return 0;}
+int freenect_start_video(freenect_device *dev) {return 0;}
 int freenect_stop_depth(freenect_device *dev) {return 0;}
-int freenect_stop_rgb(freenect_device *dev) {return 0;}
+int freenect_stop_video(freenect_device *dev) {return 0;}
 int freenect_set_tilt_degs(freenect_device *dev, double angle) {return 0;}
 int freenect_set_led(freenect_device *dev, freenect_led_options option) {return 0;}
 int freenect_update_device_state(freenect_device *dev) {return 0;}
